@@ -2,7 +2,7 @@ Inference on von Mises orientation maps
 ====
 
 
-For a thorough guide to the theoretical background, see [pdf/theory.pdf](theory.pdf).
+For a thorough guide to the theoretical background, see [pdf/theory.pdf](pdf/theory.pdf).
 
 
 Low rank models
