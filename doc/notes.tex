@@ -1,7 +1,7 @@
 %\nonstopmode
 
 \documentclass[11pt]{article}
-%\usepackage{wasysym}
+
 \usepackage{mathenv}
 \usepackage{cancel}
 \usepackage{fullpage}
@@ -11,29 +11,25 @@
 \usepackage{graphicx}
 \usepackage{verbatim}
 \usepackage{apalike}
-\usepackage{algorithm}
-\usepackage{algorithmic}
 \usepackage[usenames, dvipsnames]{color}
 \usepackage[colorlinks=true, linkcolor=OliveGreen, citecolor=Purple]{hyperref}
 
-\DeclareMathOperator*{\argmax}{argmax}
-\newcommand{\paperlink}[1]{\href{../../../../papers/#1.pdf}{\cite{#1}}}
-\newcommand{\booklink}[2]{\href{../../../../books/#2.pdf}{\cite{#1}}}
+\newcommand{\paperlink}[1]{\href{Documents/papers/#1.pdf}{\cite{#1}}}
+\newcommand{\booklink}[2]{\href{Documents/books/#2.pdf}{\cite{#1}}}
 \newcommand{\doh}{\partial}
 \newcommand{\constant}{\text{ const. }}
 \newcommand{\mc}{\mathcal}
 \newcommand{\mb}{\mathbb}
-\newcommand{\Beta}{\textnormal{B}}
 \newcommand{\ds}{\displaystyle}
 \newcommand{\ts}{\textstyle}
-\newcommand{\horline}{\begin{center}\line(1,0){250}\end{center}}
+
 \allowdisplaybreaks
 
 \begin{document}
 
-\title{Lab notebook: Smoothing orientation maps}
+\title{von Mises orientation maps: notebook}
 \author{Carl Smith}
-\date{April 27, 2012 - \today}
+\date{April 27, 2012 - May 11, 2012}
 \maketitle
 %\tableofcontents
 
@@ -81,7 +77,7 @@ p(o_{i,j}|o_{i,j-1}) &\propto \sum_{k=0}^R e^{\kappa \cos\left(o_{i,j-1}-\frac{2
 %
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.50]{../figures/column_grid_GM}
+\includegraphics[scale=0.50]{../fig/col_grid_gm}
 \caption{A graphical model of orientation selectivity, omitting observed nodes and their dependencies.}
 \label{fig:som_gm0}
 \end{figure}
@@ -94,7 +90,7 @@ p(z_{i,j}|o_{i,j}) &\propto e^{\kappa \cos(z_{i,j}-o_{i,j})}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.50]{../figures/column_grid_GM_observations}
+\includegraphics[scale=0.50]{../fig/col_grid_gm_obs}
 \caption{A graphical model of orientation selectivity, including observed nodes and their dependencies.}
 \label{fig:som_gm2}
 \end{figure}
@@ -176,7 +172,7 @@ A_i^{(k_i)} &= \sum_{k_{i-1}=0}^R A_{i-1}^{(k_{i-1})} \int do_{i,j} p(o_{i,j}|k_
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.55]{../figures/column_grid_GM_factors}
+\includegraphics[scale=0.55]{../fig/col_grid_gm_factors}
 \caption{A graphical model of orientation selectivity, including observed nodes and auxiliary variables and their dependencies, drawing attention to a forward backward run on the second column from the left. The shaded nodes' values are held as constants, as are the observations. At each step of the forward recursion, to each possible value of $k_i$ corresponds a forward variable $A_i^{(k_i)}$.}
 \label{fig:som_gm3}
 \end{figure}
@@ -233,7 +229,6 @@ p( {o(x,y)}_{x=i} | {z(x,y)}_{x=i}, {o(x,y)}_{x=i-1}, {o(x,y)}_{x=i+1} ),
 
 Liam has in mind the kind of data described in \paperlink{Ohki_2006}.
 
-
 \bibliographystyle{apalike}
-\bibliography{../../myrefs}
+\bibliography{refs}
 \end{document}

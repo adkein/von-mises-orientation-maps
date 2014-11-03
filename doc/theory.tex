@@ -1,7 +1,7 @@
 %\nonstopmode
 
 \documentclass[11pt]{article}
-%\usepackage{wasysym}
+
 \usepackage{mathenv}
 \usepackage{cancel}
 \usepackage{fullpage}
@@ -11,29 +11,25 @@
 \usepackage{graphicx}
 \usepackage{verbatim}
 \usepackage{apalike}
-\usepackage{algorithm}
-\usepackage{algorithmic}
 \usepackage[usenames, dvipsnames]{color}
 \usepackage[colorlinks=true, linkcolor=OliveGreen, citecolor=Purple]{hyperref}
 
-\DeclareMathOperator*{\argmax}{argmax}
-\newcommand{\paperlink}[1]{\href{../../../../papers/#1.pdf}{\cite{#1}}}
-\newcommand{\booklink}[2]{\href{../../../../books/#2.pdf}{\cite{#1}}}
+\newcommand{\paperlink}[1]{\href{Documents/papers/#1.pdf}{\cite{#1}}}
+\newcommand{\booklink}[2]{\href{Documents/books/#2.pdf}{\cite{#1}}}
 \newcommand{\doh}{\partial}
 \newcommand{\constant}{\text{ const. }}
 \newcommand{\mc}{\mathcal}
 \newcommand{\mb}{\mathbb}
-\newcommand{\Beta}{\textnormal{B}}
 \newcommand{\ds}{\displaystyle}
 \newcommand{\ts}{\textstyle}
-\newcommand{\horline}{\begin{center}\line(1,0){250}\end{center}}
+
 \allowdisplaybreaks
 
 \begin{document}
 
-\title{Note: generating and estimating orientation maps with von Mises coupling potentials}
+\title{Inference on von Mises orientation maps}
 \author{Carl Smith}
-\date{May 10, 2012 - \today}
+\date{May 10, 2012 - May 11, 2012}
 \maketitle
 %\tableofcontents
 
@@ -53,12 +49,12 @@ Low rank models are joint distributions whose structure allows for fast exact in
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.35]{../../figures/introducing_auxiliary_variables}
+\includegraphics[scale=0.35]{../fig/aux_vars}
 \caption{On the left, a general chain structured distribution of latent variables $X$ and observations $Y$. On the right, such a model expressed in terms of discrete auxiliary variables $Z$.}
-\label{fig:introducing_auxiliary_variables}
+\label{fig:aux_vars}
 \end{figure}
 
-Suppose, for simplicity, that we are interested in a distribution $p(X)$ over some latent variables $X$, whose dependence structure forms a chain. (More generally, consider the posterior of $X$ given some observations $Y$.) Suppose that $X$ is continuous but with non-Gaussian marginals, so that neither HMMs nor linear Gaussian models are appropriate. But suppose that the dependence structure of $X$ can be expressed in terms of latent variables $Z$ with some small discrete state space, where each neighboring pair of continuous $x$'s is coupled through some discrete variable $z$, as shown in Figure \ref{fig:introducing_auxiliary_variables}. The graph on the left has the form
+Suppose, for simplicity, that we are interested in a distribution $p(X)$ over some latent variables $X$, whose dependence structure forms a chain. (More generally, consider the posterior of $X$ given some observations $Y$.) Suppose that $X$ is continuous but with non-Gaussian marginals, so that neither HMMs nor linear Gaussian models are appropriate. But suppose that the dependence structure of $X$ can be expressed in terms of latent variables $Z$ with some small discrete state space, where each neighboring pair of continuous $x$'s is coupled through some discrete variable $z$, as shown in Figure \ref{fig:aux_vars}. The graph on the left has the form
 
 \begin{align*}
 p(X|Y)=p(x_1)\prod_{t=1}^{T-1}\left[\vphantom{\sum_{i}^{J}}p(x_{t+1}|x_t)\right]p(y_t|x_t).
@@ -142,13 +138,13 @@ Suppose we have a time series of angular variables $X$ that we know to vary grad
 p(X)\propto\prod_t\sum_{i=0}^Re^{\kappa_t\cos\left(x_t-\frac{2\pi i}{R+1}\right)}e^{\kappa_t\cos\left(x_{t+1}-\frac{2\pi i}{R+1}\right)}
 \end{align*}
 
-\noindent For each time step $t$, this can be viewed as, and is, a superposition of unimodal functions of $x_t$ and $x_{t+1}$, each peaked at $x_t=x_{t+1}=\frac{2\pi i}{R+1}$ for $i=1,\cdots,R$, as illustrated in Figure \ref{fig:von_mises_bumps}.
+\noindent For each time step $t$, this can be viewed as, and is, a superposition of unimodal functions of $x_t$ and $x_{t+1}$, each peaked at $x_t=x_{t+1}=\frac{2\pi i}{R+1}$ for $i=1,\cdots,R$, as illustrated in Figure \ref{fig:vm_bumps}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.40]{../../figures/von_mises_bumps}
+\includegraphics[scale=0.40]{../fig/vm_bumps}
 \caption{The von Mises smoother transition kernel, shown for rank $R=3$ (left) and $R=10$ (right), where $\kappa_t:=R$ in each case.}
-\label{fig:von_mises_bumps}
+\label{fig:vm_bumps}
 \end{figure}
 
 \section{Loopy orientation map model}
@@ -180,7 +176,7 @@ p(o_{i,j}|o_{i,j-1}) &\propto \sum_{k=0}^R e^{\kappa \cos\left(o_{i,j-1}-\frac{2
 %
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.50]{../../figures/column_grid_GM}
+\includegraphics[scale=0.50]{../fig/col_grid_gm}
 \caption{A graphical model of orientation selectivity, omitting observed nodes and their dependencies.}
 \label{fig:som_gm0}
 \end{figure}
@@ -193,7 +189,7 @@ p(z_{i,j}|o_{i,j}) &\propto e^{\kappa \cos(z_{i,j}-o_{i,j})}.
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.50]{../../figures/column_grid_GM_observations}
+\includegraphics[scale=0.50]{../fig/col_grid_gm_obs}
 \caption{A graphical model of orientation selectivity, including observed nodes and their dependencies.}
 \label{fig:som_gm2}
 \end{figure}
@@ -256,7 +252,7 @@ A_i^{(k_i)} &= \sum_{k_{i-1}=0}^R A_{i-1}^{(k_{i-1})} \int do_{i,j} p(o_{i,j}|k_
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.55]{../../figures/column_grid_GM_factors_labeled}
+\includegraphics[scale=0.55]{../fig/col_grid_gm_factors}
 \caption{A graphical model of orientation selectivity, including observed nodes and auxiliary variables and their dependencies, drawing attention to a forward backward run on the second column from the left. The shaded nodes' values are held as constants, as are the observations. At each step of the forward recursion, to each possible value of $k_i$ corresponds a forward variable $A_i^{(k_i)}$.}
 \label{fig:som_gm3}
 \end{figure}
@@ -314,11 +310,11 @@ Figure \ref{fig:sample_1} is a sample from the von Mises orientation preference 
 
 \begin{figure}[h]
 \centering
-\includegraphics[scale=0.5]{../../figures/sample_N_1024_R_5_kq_5_ky_5_nG_20}
+\includegraphics[scale=0.5]{../fig/sample__N_1024__R_5__kq_5__ky_5__nG_20}
 \caption{A sample $50\times50$ grid of angles drawn from the von Mises orientation map prior with rank $R=5$ and $\kappa_t=5\;\;\forall t$. Twenty Gibbs sweeps were made.}
 \label{fig:sample_1}
 \end{figure}
 
 \bibliographystyle{apalike}
-\bibliography{../../../myrefs}
+\bibliography{refs}
 \end{document}
